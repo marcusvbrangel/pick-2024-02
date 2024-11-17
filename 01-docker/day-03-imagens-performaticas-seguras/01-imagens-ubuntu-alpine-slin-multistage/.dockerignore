@@ -6,3 +6,5 @@ DockerfileAlpine314
 DockerfileAlpine314MultiStage
 DockerfilePythonAlpine
 DockerfilePythonAlpineMultiStage
+DockerfileDebianSlim
+DockerfileDebianSlimMultiStage

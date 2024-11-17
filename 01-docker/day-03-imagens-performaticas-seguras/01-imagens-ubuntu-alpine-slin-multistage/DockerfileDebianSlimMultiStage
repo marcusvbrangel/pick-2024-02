@@ -1,0 +1,20 @@
+# Etapa de construção
+FROM debian:bullseye-slim AS builder
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip && \
+    rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Etapa final
+FROM debian:bullseye-slim
+RUN apt-get update && apt-get install -y \
+    python3 && \
+    rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
+COPY . .
+CMD ["python3", "app.py"]

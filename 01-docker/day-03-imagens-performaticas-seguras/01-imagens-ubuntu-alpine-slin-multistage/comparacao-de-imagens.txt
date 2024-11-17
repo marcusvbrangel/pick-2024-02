@@ -327,9 +327,109 @@ docker image ls
 
 
 
+IMAGEM: DockerfileDebianSlim
+
+
+"""
+
+FROM debian:bullseye-slim
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip && \
+    rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+COPY . .
+CMD ["python3", "app.py"]
+
+"""
+
+
+docker image  build -t dockerfile-debian-slim  -f DockerfileDebianSlim .
+
+    [+] Building 47.8s (11/11) FINISHED                                                         docker:default
+
+    => [internal] load build definition from DockerfileDebianSlim                                        0.0s
+    => => transferring dockerfile: 308B                                                                  0.0s
+    => [internal] load metadata for docker.io/library/debian:bullseye-slim                               1.4s
+    => [internal] load .dockerignore                                                                     0.1s
+    => => transferring context: 237B                                                                     0.0s
+    => [1/6] FROM docker.io/library/debian:bullseye-slim@sha256:60a596681410bd31a48e5975806a24cd78328f3  4.5s
+    => => resolve docker.io/library/debian:bullseye-slim@sha256:60a596681410bd31a48e5975806a24cd78328f3  0.0s
+    => => sha256:60a596681410bd31a48e5975806a24cd78328f3fd6b9ee5bc64dca6d46a51f29 4.76kB / 4.76kB        0.0s
+    => => sha256:0ee558f46e262c21f9e3449896c59d740eaa323e3c0709f5c6f3c3943bd0a113 1.05kB / 1.05kB        0.0s
+    => => sha256:5d941b17065a10e6b9b00d8be5b78de9b3d9c86a3648ab7f133e6440707f1087 569B / 569B            0.0s
+    => => sha256:55ab1b300d4b4b00c98fb396b36f0f7ba5dab2f7d18927e3742d364632723cbe 31.45MB / 31.45MB      3.1s
+    => => extracting sha256:55ab1b300d4b4b00c98fb396b36f0f7ba5dab2f7d18927e3742d364632723cbe             1.2s
+    => [internal] load build context                                                                     0.0s
+    => => transferring context: 897B                                                                     0.0s
+    => [2/6] RUN apt-get update && apt-get install -y     python3     python3-pip &&     rm -rf /var/l  36.4s
+    => [3/6] WORKDIR /app                                                                                0.1s 
+    => [4/6] COPY requirements.txt .                                                                     0.1s 
+    => [5/6] RUN pip3 install --no-cache-dir -r requirements.txt                                         3.3s 
+    => [6/6] COPY . .                                                                                    0.1s 
+    => exporting to image                                                                                1.9s
+    => => exporting layers                                                                               1.9s
+    => => writing image sha256:6f7b8b614b8fb04b7d6c2cd0aaf4afe26e1fd879182e7c52735a2fc6fe25906d          0.0s
+    => => naming to docker.io/library/dockerfile-debian-slim
+
+
+docker image ls
+
+    REPOSITORY                                 TAG       IMAGE ID       CREATED              SIZE
+    dockerfile-debian-slim                     latest    6f7b8b614b8f   About a minute ago   420MB
+
 
 ----------------------------------------------------------------
 
+
+IMAGEM: DockerfileDebianSlimMultiStage
+
+
+"""
+
+# Etapa de construção
+FROM debian:bullseye-slim AS builder
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip && \
+    rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Etapa final
+FROM debian:bullseye-slim
+RUN apt-get update && apt-get install -y \
+    python3 && \
+    rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
+COPY . .
+CMD ["python3", "app.py"]
+
+
+"""
+
+
+
+docker image  build -t dockerfile-debian-slim-multistage -f DockerfileDebianSlimMultiStage .
+
+
+
+
+
+
+???
+
+docker run -it --rm debian:bullseye-slim sh
+apt-get update && apt-get install -y python3 python3-pip
+pip3 install --no-cache-dir -r requirements.txt
+pip3 show loguru | grep Location
+
+???
 
 
 
