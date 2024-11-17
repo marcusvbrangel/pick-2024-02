@@ -1,0 +1,15 @@
+# Etapa de construção
+FROM alpine:3.14 AS builder
+WORKDIR /app
+RUN apk update && apk add python3 py3-pip
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+# Etapa final
+FROM alpine:3.14
+WORKDIR /app
+RUN apk update && apk add python3
+COPY --from=builder /usr/lib/python3.9/site-packages /usr/lib/python3.9/site-packages
+COPY --from=builder /usr/bin/python3 /usr/bin/python3
+COPY . .
+CMD ["python3", "app.py"]

@@ -1,0 +1,157 @@
+
+
+----------------------------------------------------
+
+
+Chainguard Images
+https://www.chainguard.dev/chainguard-images
+
+Chainguard builds secure container images that eliminate CVEs from the start. Java, 
+Python, and Go. Postgres, Redis and Nginx. And everything in between.
+Build faster? Or be more secure? Why not both.
+
+
+
+----------------------------------------------------
+
+Python Chainguard Image
+https://images.chainguard.dev/directory/image/python/overview
+
+
+Getting Started with the Python Chainguard Image
+https://edu.chainguard.dev/chainguard/chainguard-images/getting-started/python/?_gl=1*1fl8tcg*_gcl_au*MTQwMzY1NTE4Ni4xNzMxNTE2NzU2
+
+
+
+
+
+
+
+
+
+----------------------------------------------------
+
+
+vim Dockerfile
+
+
+"""
+
+FROM cgr.dev/chainguard/python:latest-dev
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt 
+#RUN pip install flask
+
+#FROM cgr.dev/chainguard/python:latest
+#WORKDIR /app
+#COPY --from=builder /home/nonroot/.local/lib/python3.11/site-packages /home/nonroot/.local/lib/python3.11/site-packages
+#COPY --from=builder /app/packages /app/packages
+COPY app.py .
+COPY templates templates/
+COPY static static/
+
+#COPY main.py .
+
+EXPOSE 5000
+
+#ENTRYPOINT [ "python", "/app/app.py" ]
+ENTRYPOINT ["flask", "run", "--host=0.0.0.0"]
+
+
+
+"""
+
+
+docker image build -t giropops-senha-chainguard:1.0 .
+
+
+    [+] Building 4.3s (16/16) FINISHED                                                                                     docker:default
+    => [internal] load build definition from Dockerfile                                                                             0.0s
+    => => transferring dockerfile: 593B                                                                                             0.0s
+    => [internal] load metadata for cgr.dev/chainguard/python:latest                                                                1.1s
+    => [internal] load metadata for cgr.dev/chainguard/python:latest-dev                                                            1.1s
+    => [internal] load .dockerignore                                                                                                0.0s
+    => => transferring context: 2B                                                                                                  0.0s
+    => [stage-1 1/6] FROM cgr.dev/chainguard/python:latest@sha256:5de85837816e630c79597cb0934c352469fe5c2b8e7871da583cec3ef9ec4f43  0.0s
+    => [internal] load build context                                                                                                0.0s
+    => => transferring context: 429B                                                                                                0.0s
+    => [builder 1/4] FROM cgr.dev/chainguard/python:latest-dev@sha256:3d576a0d94b05c0da7fba83c8dbf1d909a61a95132d3f65b409b3eb01bf1  0.0s
+    => CACHED [stage-1 2/6] WORKDIR /app                                                                                            0.0s
+    => CACHED [builder 2/4] WORKDIR /app                                                                                            0.0s
+    => CACHED [builder 3/4] COPY requirements.txt .                                                                                 0.0s
+    => [builder 4/4] RUN pip install --no-cache-dir -r requirements.txt --target /app/packages                                      2.6s
+    => [stage-1 3/6] COPY --from=builder /app/packages /app/packages                                                                0.1s
+    => [stage-1 4/6] COPY app.py .                                                                                                  0.0s
+    => [stage-1 5/6] COPY templates templates/                                                                                      0.1s
+    => [stage-1 6/6] COPY static static/                                                                                            0.0s
+    => exporting to image                                                                                                           0.2s
+    => => exporting layers                                                                                                          0.1s
+    => => writing image sha256:b752a638474c27676b1540146f2b4e6b643eac26212ca2d542f5f17dd971a169                                     0.0s
+    => => naming to docker.io/library/giropops-senha-chainguard:1.0
+
+
+
+docker image ls
+
+    REPOSITORY                                 TAG       IMAGE ID       CREATED          SIZE
+    giropops-senha-chainguard                  1.0       b752a638474c   53 seconds ago   71MB
+
+
+
+docker network create mynetwork
+
+docker container rm -f giropops-senhas-chainguard
+
+
+docker container run -d -p 5000:5000 --name giropops-senhas-chainguard --network mynetwork -e REDIS_HOST=redis-service giropops-senha-chainguard:1.0
+
+    d247fb07d7c7bacd3717e7defeb5ff516655a1feeb9d52fd61d2dd4663c864dd
+    docker: Error response from daemon: failed to create task for container: 
+    failed to create shim task: OCI runtime create failed: runc create failed: 
+    unable to start container process: exec: "flask": executable file not found in $PATH: unknown.
+
+
+
+docker container logs giropops-senhas-chainguard
+
+    python: can't open file '/aap/app.py': [Errno 2] No such file or directory
+
+
+
+
+
+----------------------------------------------------
+
+
+
+
+----------------------------------------------------
+
+
+
+
+----------------------------------------------------
+
+
+
+
+----------------------------------------------------
+
+
+
+
+
+----------------------------------------------------
+
+
+
+
+----------------------------------------------------
+
+
+
+
+----------------------------------------------------
+
+

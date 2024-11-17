@@ -1,0 +1,280 @@
+
+------------------------------------------------------------------------------
+
+
+Quick setup — if you’ve done this kind of thing before
+git@github.com:marcusvbrangel/pick-2024-02.git
+Get started by creating a new file or uploading an existing file. We recommend every repository include a README, LICENSE, and .gitignore.
+
+…or create a new repository on the command line
+echo "# pick-2024-02" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:marcusvbrangel/pick-2024-02.git
+git push -u origin main
+
+
+…or push an existing repository from the command line
+
+git remote add origin git@github.com:marcusvbrangel/pick-2024-02.git
+git branch -M main
+git push -u origin main
+
+
+------------------------------------------------------------------------------
+
+
+sudo apt update && sudo apt install -y vim
+
+vim Dockerfile
+
+
+"""
+
+FROM alpine:3.20.3
+LABEL mainteiner="marcus.vbrangel@gmail.com"
+RUN apk add nginx && apk add curl 
+#COPY index.html /var/www/html
+#COPY ./acuas-1.0.0 /var/www/html 
+WORKDIR /var/www/html
+ENV APP_VERSION=1.0.0
+EXPOSE 80
+HEALTHCHECK --timeout=2s CMD curl -f localhost || exit 1
+ENTRYPOINT ["nginx"]
+CMD ["-g", "daemon off;"]
+
+
+"""
+
+docker image build -t giropops-web:1.0 .
+
+	REPOSITORY   TAG       IMAGE ID       CREATED          SIZE
+	giropops     1.0       6c742c5fb1bc   23 seconds ago   16.9MB
+	alpine       3.20.3    91ef0af61f39   8 weeks ago      7.8MB
+
+
+
+docker container run -d -p 80:80 --name giropops-web giropops-web:1.0
+
+
+
+--------------------------------------------------------------------------
+
+
+DOCKER HUB
+
+
+docker login -u marcusvbrangel
+
+password: ************
+
+Login Succeeded
+
+
+--------------------------------------------------------------------------
+
+
+docker image build -t marcusvbrangel/meu-nginx:1.0 .
+
+
+docker image ls
+
+    REPOSITORY                                 TAG       IMAGE ID       CREATED         SIZE
+    marcusvbrangel/meu-nginx                   1.0       e41a501f231f   2 days ago      140MB
+
+
+docker image push marcusvbrangel/meu-nginx:1.0
+
+    The push refers to repository [docker.io/marcusvbrangel/meu-nginx]
+    5f70bf18a086: Mounted from library/redis 
+    8b533df1916f: Pushed 
+    ab113c535c6f: Pushed 
+    2573e0d81582: Mounted from library/ubuntu 
+    1.0: digest: sha256:1812df4d3ed6f33903d52cc61ec309801b8b80b675ff0f5dead2eb7e595aa514 size: 1158
+
+
+docker search marcusvbrangel/meu-nginx
+
+    NAME                                     DESCRIPTION                                     STARS     OFFICIAL
+    marcusvbrangel/meu-nginx                 A Simple yet functional Nginx Web Server        0
+    nginx/nginx-ingress                      NGINX and  NGINX Plus Ingress Controllers fo…   96        
+             
+      
+
+--------------------------------------------------------------------------
+
+
+docker push marcusvbrangel/meu-nginx:1.0
+
+
+docker image ls | grep meu-nginx
+
+    meu-nginx                                  1.0       e41a501f231f   2 days ago      140MB
+    marcusvbrangel/meu-nginx                   1.0       e41a501f231f   2 days ago      140MB
+
+
+docker image rm -f meu-nginx:1.0 marcusvbrangel/meu-nginx:1.0  
+
+    Untagged: meu-nginx:1.0
+    Untagged: marcusvbrangel/meu-nginx:1.0
+    Untagged: marcusvbrangel/meu-nginx@sha256:1812df4d3ed6f33903d52cc61ec309801b8b80b675ff0f5dead2eb7e595aa514
+
+
+docker image ls | meu-nginx
+
+    meu-nginx: comando não encontrado
+
+
+docker image pull marcusvbrangel/meu-nginx:1.0
+
+    1.0: Pulling from marcusvbrangel/meu-nginx
+    Digest: sha256:1812df4d3ed6f33903d52cc61ec309801b8b80b675ff0f5dead2eb7e595aa514
+    Status: Downloaded newer image for marcusvbrangel/meu-nginx:1.0
+    docker.io/marcusvbrangel/meu-nginx:1.0
+
+
+
+docker image ls | grep meu-nginx
+
+    marcusvbrangel/meu-nginx                   1.0       e41a501f231f   2 days ago      140MB
+
+
+
+--------------------------------------------------------------------------
+
+
+D E S A F I O 02 
+
+
+---------- parte 01 -------
+
+git clone https://github.com/badtuxx/giropops-senhas.git
+
+cd giropops-senhas
+
+apt update -y && \
+apt install pip -y && \
+apt install curl -y && \
+apt install redis -y && \
+apt install vim -y && \
+
+pip install --no-cache-dir -r requirements.txt
+
+systemctl start redis 
+
+systemctl status redis
+
+export REDIS_HOST=localhost
+
+flask run --host=0.0.0.0
+
+
+
+---------- parte 02 ------- 
+
+cd giropops-senhas 
+
+sudo apt install vim -y 
+
+------
+
+vim Dockerfile 
+
+
+""" 
+
+FROM python:3.9.19-bullseye 
+WORKDIR /app 
+COPY requirements.txt . 
+RUN pip install --no-cache-dir -r requirements.txt 
+COPY . . 
+EXPOSE 5000 8088 
+ENV REDIS_HOST=redis-service 
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"] 
+
+""" 
+
+docker image build -t marcusvbrangel/linuxtips-giropops-senhas:1.0 . 
+
+
+------ 
+
+sudo ss -tulnp | grep 6379 
+
+    tcp LISTEN 0 511 127.0.0.1:6379 0.0.0.0:* users:(("redis-server",pid=3909,fd=6)) 
+    tcp LISTEN 0 511 [::1]:6379 [::]:* users:(("redis-server",pid=3909,fd=7)) 
+
+
+sudo systemctl stop redis 
+
+systemctl status redis 
+
+ou 
+
+sudo kill pid sudo ss -tulnp | grep 6379 
+
+------
+
+docker network create mynetwork 
+
+------
+
+docker container rm -f redis-service
+
+docker container run -d --name redis-service --network mynetwork -p 6379:6379 redis 
+
+docker container logs redis-service
+
+------
+
+docker container rm -f giropops-senhas
+
+docker container run -d --name giropops-senhas --network mynetwork -p 5000:5000 \ 
+marcusvbrangel/linuxtips-giropops-senhas:1.0 ENV REDIS_HOST=redis-service 
+or 
+docker container run -d -p 5000:5000 --name giropops-senhas --network mynetwork -e REDIS_HOST=redis-service marcusvbrangel/linuxtips-giropops-senhas:1.0 
+
+docker container logs redis-service
+
+-----
+
+
+--------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------------
+
+
+
+
+
+--------------------------------------------------------------------------
+
+
+
+
+
+--------------------------------------------------------------------------
+
+
+
+
+
+
+--------------------------------------------------------------------------
+
+
+
+
+
+
+

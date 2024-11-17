@@ -1,0 +1,8 @@
+notes.txt
+comparacao-de-imagens.txt
+.dockerignore
+DockerfileUbuntu22
+DockerfileAlpine314
+DockerfileAlpine314MultiStage
+DockerfilePythonAlpine
+DockerfilePythonAlpineMultiStage
