@@ -1,0 +1,356 @@
+
+-----------------------------------------------------------------------------------
+
+
+Trivy
+
+
+https://trivy.dev/v0.57/
+
+https://github.com/aquasecurity/trivy
+
+
+
+
+Install using Package Manager
+
+https://trivy.dev/v0.57/getting-started/installation/
+
+
+
+
+Debian/Ubuntu (Official)
+
+
+sudo apt-get install wget gnupg
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb generic main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install trivy
+
+
+
+-----------------------------------------------------------------------------------
+
+
+trivy
+
+    Scanner for vulnerabilities in container images, file systems, and Git repositories, 
+    as well as for configuration issues and hard-coded secrets
+
+    Usage:
+    trivy [global flags] command [flags] target
+    trivy [command]
+
+    Examples:
+    # Scan a container image
+    $ trivy image python:3.4-alpine
+
+    # Scan a container image from a tar archive
+    $ trivy image --input ruby-3.1.tar
+
+    # Scan local filesystem
+    $ trivy fs .
+
+    # Run in server mode
+    $ trivy server
+
+    Scanning Commands
+    config      Scan config files for misconfigurations
+    filesystem  Scan local filesystem
+    image       Scan a container image
+    kubernetes  [EXPERIMENTAL] Scan kubernetes cluster
+    repository  Scan a repository
+    rootfs      Scan rootfs
+    sbom        Scan SBOM for vulnerabilities and licenses
+    vm          [EXPERIMENTAL] Scan a virtual machine image
+
+    Management Commands
+    module      Manage modules
+    plugin      Manage plugins
+    vex         [EXPERIMENTAL] VEX utilities
+
+    Utility Commands
+    clean       Remove cached files
+    completion  Generate the autocompletion script for the specified shell
+    convert     Convert Trivy JSON report into a different format
+    help        Help about any command
+    registry    Manage registry authentication
+    server      Server mode
+    version     Print the version
+
+    Flags:
+        --cache-dir string          cache directory (default "/home/wolf/.cache/trivy")
+    -c, --config string             config path (default "trivy.yaml")
+    -d, --debug                     debug mode
+    -f, --format string             version format (json)
+        --generate-default-config   write the default config to trivy-default.yaml
+    -h, --help                      help for trivy
+        --insecure                  allow insecure server connections
+    -q, --quiet                     suppress progress bar and log output
+        --timeout duration          timeout (default 5m0s)
+    -v, --version                   show version
+
+    Use "trivy [command] --help" for more information about a command.
+
+
+
+-----------------------------------------------------------------------------------
+
+
+docker image ls
+
+    REPOSITORY                                 TAG             IMAGE ID       CREATED         SIZE
+    dockerfile-chainguard-java                 1.0             d98bcf992326   19 hours ago    321MB
+    dockerfile-alpine-java-jre                 1.0             b9e9dc6ffa23   19 hours ago    217MB
+    dockerfile-alpine-java-jdk                 1.0             3d6724601cb5   20 hours ago    371MB
+    dockerfile-chainguard-python               latest          1a2b097e54a5   27 hours ago    63.8MB
+    dockerfile-debian-slim                     latest          6f7b8b614b8f   2 days ago      420MB
+    dockerfile-alpine314-multistage            latest          4d2fa05f6cf8   2 days ago      72.2MB
+    dockerfile-python-alpine-multistage        latest          c550848c75cc   2 days ago      79.3MB
+    dockerfile-python-alpine                   latest          3d03a76d9fc8   2 days ago      73.3MB
+
+
+-----------------------------------------------------------------------------------
+
+
+
+trivy image dockerfile-chainguard-java:1.0
+
+
+    dockerfile-chainguard-java:1.0 (wolfi 20230201)
+
+    Total: 0 (UNKNOWN: 0, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
+
+
+    2024-11-19T18:15:42-03:00       INFO    [vulndb] Need to update DB
+    2024-11-19T18:15:42-03:00       INFO    [vulndb] Downloading vulnerability DB...
+    2024-11-19T18:15:42-03:00       INFO    [vulndb] Downloading artifact...        repo="mirror.gcr.io/aquasec/trivy-db:2"
+    55.68 MiB / 55.68 MiB [-----------------------------------------------------------------------------------------------------------------------------------------------] 100.00% 7.42 MiB p/s 7.7s
+    2024-11-19T18:15:53-03:00       INFO    [vulndb] Artifact successfully downloaded       repo="mirror.gcr.io/aquasec/trivy-db:2"
+    2024-11-19T18:15:53-03:00       INFO    [vuln] Vulnerability scanning is enabled
+    2024-11-19T18:15:53-03:00       INFO    [secret] Secret scanning is enabled
+    2024-11-19T18:15:53-03:00       INFO    [secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+    2024-11-19T18:15:53-03:00       INFO    [secret] Please see also https://aquasecurity.github.io/trivy/v0.57/docs/scanner/secret#recommendation for faster secret detection
+    2024-11-19T18:15:58-03:00       INFO    [javadb] Downloading Java DB...
+    2024-11-19T18:15:58-03:00       INFO    [javadb] Downloading artifact...        repo="mirror.gcr.io/aquasec/trivy-java-db:1"
+    2024-11-19T18:15:58-03:00       WARN    [sbom] Ignore the OS package as no OS is detected.      file_path="var/lib/db/sbom/alsa-lib-1.2.13-r0.spdx.json"
+    2024-11-19T18:15:58-03:00       WARN    [sbom] Ignore the OS package as no OS is detected.      file_path="var/lib/db/sbom/ca-certificates-bundle-20241010-r2.spdx.json"
+    2024-11-19T18:15:58-03:00       WARN    [sbom] Ignore the OS package as no OS is detected.      file_path="var/lib/db/sbom/fontconfig-config-2.15.0-r2.spdx.json"
+    2024-11-19T18:15:58-03:00       WARN    [sbom] Ignore the OS package as no OS is detected.      file_path="var/lib/db/sbom/wolfi-baselayout-20230201-r15.spdx.json"
+    2024-11-19T18:15:58-03:00       WARN    [sbom] Ignore the OS package as no OS is detected.      file_path="var/lib/db/sbom/zlib-1.3.1-r4.spdx.json"
+    662.23 MiB / 662.23 MiB [--------------------------------------------------------------------------------------------------------------------------------------------] 100.00% 9.11 MiB p/s 1m13s
+    2024-11-19T18:17:15-03:00       INFO    [javadb] Artifact successfully downloaded       repo="mirror.gcr.io/aquasec/trivy-java-db:1"
+    2024-11-19T18:17:15-03:00       INFO    [javadb] Java DB is cached for 3 days. If you want to update the database more frequently, "trivy clean --java-db" command clears the DB cache.
+    2024-11-19T18:17:15-03:00       INFO    Detected OS     family="wolfi" version="20230201"
+    2024-11-19T18:17:15-03:00       INFO    [wolfi] Detecting vulnerabilities...    pkg_num=40
+    2024-11-19T18:17:15-03:00       INFO    Number of language-specific files       num=1
+    2024-11-19T18:17:15-03:00       INFO    [jar] Detecting vulnerabilities...
+
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+trivy image dockerfile-alpine-java-jre:1.0
+
+
+    dockerfile-alpine-java-jre:1.0 (alpine 3.20.2)
+
+    Total: 10 (UNKNOWN: 0, LOW: 3, MEDIUM: 4, HIGH: 1, CRITICAL: 2)
+
+    ┌────────────┬────────────────┬──────────┬────────┬───────────────────┬───────────────┬─────────────────────────────────────────────────────────────┐
+    │  Library   │ Vulnerability  │ Severity │ Status │ Installed Version │ Fixed Version │                            Title                            │
+    ├────────────┼────────────────┼──────────┼────────┼───────────────────┼───────────────┼─────────────────────────────────────────────────────────────┤
+    │ libcrypto3 │ CVE-2024-6119  │ MEDIUM   │ fixed  │ 3.3.1-r3          │ 3.3.2-r0      │ openssl: Possible denial of service in X.509 name checks    │
+    │            │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-6119                   │
+    │            ├────────────────┼──────────┤        │                   ├───────────────┼─────────────────────────────────────────────────────────────┤
+    │            │ CVE-2024-9143  │ LOW      │        │                   │ 3.3.2-r1      │ openssl: Low-level invalid GF(2^m) parameters lead to OOB   │
+    │            │                │          │        │                   │               │ memory access                                               │
+    │            │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-9143                   │
+    ├────────────┼────────────────┼──────────┤        ├───────────────────┼───────────────┼─────────────────────────────────────────────────────────────┤
+    │ libexpat   │ CVE-2024-45491 │ CRITICAL │        │ 2.6.2-r0          │ 2.6.3-r0      │ libexpat: Integer Overflow or Wraparound                    │
+    │            │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-45491                  │
+    │            ├────────────────┤          │        │                   │               ├─────────────────────────────────────────────────────────────┤
+    │            │ CVE-2024-45492 │          │        │                   │               │ libexpat: integer overflow                                  │
+    │            │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-45492                  │
+    │            ├────────────────┼──────────┤        │                   │               ├─────────────────────────────────────────────────────────────┤
+    │            │ CVE-2024-45490 │ HIGH     │        │                   │               │ libexpat: Negative Length Parsing Vulnerability in libexpat │
+    │            │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-45490                  │
+    │            ├────────────────┼──────────┤        │                   ├───────────────┼─────────────────────────────────────────────────────────────┤
+    │            │ CVE-2024-50602 │ MEDIUM   │        │                   │ 2.6.4-r0      │ libexpat: expat: DoS via XML_ResumeParser                   │
+    │            │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-50602                  │
+    ├────────────┼────────────────┤          │        ├───────────────────┼───────────────┼─────────────────────────────────────────────────────────────┤
+    │ libssl3    │ CVE-2024-6119  │          │        │ 3.3.1-r3          │ 3.3.2-r0      │ openssl: Possible denial of service in X.509 name checks    │
+    │            │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-6119                   │
+    │            ├────────────────┼──────────┤        │                   ├───────────────┼─────────────────────────────────────────────────────────────┤
+    │            │ CVE-2024-9143  │ LOW      │        │                   │ 3.3.2-r1      │ openssl: Low-level invalid GF(2^m) parameters lead to OOB   │
+    │            │                │          │        │                   │               │ memory access                                               │
+    │            │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-9143                   │
+    ├────────────┼────────────────┼──────────┤        │                   ├───────────────┼─────────────────────────────────────────────────────────────┤
+    │ openssl    │ CVE-2024-6119  │ MEDIUM   │        │                   │ 3.3.2-r0      │ openssl: Possible denial of service in X.509 name checks    │
+    │            │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-6119                   │
+    │            ├────────────────┼──────────┤        │                   ├───────────────┼─────────────────────────────────────────────────────────────┤
+    │            │ CVE-2024-9143  │ LOW      │        │                   │ 3.3.2-r1      │ openssl: Low-level invalid GF(2^m) parameters lead to OOB   │
+    │            │                │          │        │                   │               │ memory access                                               │
+    │            │                │          │        │                   │               │ https://avd.aquasec.com/nvd/cve-2024-9143                   │
+    └────────────┴────────────────┴──────────┴────────┴───────────────────┴───────────────┴─────────────────────────────────────────────────────────────┘
+
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+trivy image dockerfile-alpine-java-jdk:1.0
+
+
+    dockerfile-alpine-java-jdk:1.0 (alpine 3.20.2)
+
+    Total: 10 (UNKNOWN: 0, LOW: 3, MEDIUM: 4, HIGH: 1, CRITICAL: 2)
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+trivy image dockerfile-chainguard-python:latest
+
+
+    dockerfile-chainguard-python:latest (wolfi 20230201)
+
+    Total: 0 (UNKNOWN: 0, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+trivy image dockerfile-debian-slim:latest
+
+
+    Notes: muitas vulnerabilities... muitissimas... de todos os tipos... muitas criticas....
+
+
+
+-----------------------------------------------------------------------------------
+
+
+trivy image dockerfile-alpine314-multistage:latest
+
+
+    dockerfile-alpine314-multistage:latest (alpine 3.14.10)
+
+    Total: 0 (UNKNOWN: 0, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
+
+    2024-11-19T18:34:34-03:00       INFO    Table result includes only package filenames. Use '--format json' option to get the full path to the package file.
+
+    Python (python-pkg)
+
+    Total: 12 (UNKNOWN: 0, LOW: 0, MEDIUM: 7, HIGH: 5, CRITICAL: 0)
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+trivy image dockerfile-python-alpine-multistage:latest
+
+
+    dockerfile-python-alpine-multistage:latest (alpine 3.20.3)
+
+    Total: 0 (UNKNOWN: 0, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
+
+    2024-11-19T18:37:24-03:00       INFO    Table result includes only package filenames. Use '--format json' option to get the full path to the package file.
+
+    Python (python-pkg)
+
+    Total: 1 (UNKNOWN: 0, LOW: 0, MEDIUM: 0, HIGH: 1, CRITICAL: 0)
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+trivy image dockerfile-python-alpine:latest
+
+
+    dockerfile-python-alpine:latest (alpine 3.20.3)
+
+    Total: 0 (UNKNOWN: 0, LOW: 0, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
+
+    2024-11-19T18:38:56-03:00       INFO    Table result includes only package filenames. Use '--format json' option to get the full path to the package file.
+
+    Python (python-pkg)
+
+    Total: 1 (UNKNOWN: 0, LOW: 0, MEDIUM: 0, HIGH: 1, CRITICAL: 0)
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+CVE Vulnerabilities
+CVE-2024-6345
+Improper Control of Generation of Code ('Code Injection')
+Published: Jul 15, 2024 | Modified: Jul 15, 2024
+
+https://avd.aquasec.com/nvd/2024/cve-2024-6345/
+
+
+-----------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+
+
+
