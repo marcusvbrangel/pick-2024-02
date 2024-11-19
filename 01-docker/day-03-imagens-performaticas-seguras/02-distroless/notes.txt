@@ -1,0 +1,110 @@
+
+--------------------------------------------------------------------
+
+
+Chainguard
+
+
+
+https://www.chainguard.dev/
+
+https://www.chainguard.dev/chainguard-images
+
+
+
+
+https://images.chainguard.dev/directory/image/python/overview?_gl=1*avtutw*_gcl_au*MTQwMzY1NTE4Ni4xNzMxNTE2NzU2
+
+https://images.chainguard.dev/directory/image/jdk/overview?_gl=1*1bd26d2*_gcl_au*MTQwMzY1NTE4Ni4xNzMxNTE2NzU2
+
+https://images.chainguard.dev/directory/image/nginx/overview?_gl=1*1bd26d2*_gcl_au*MTQwMzY1NTE4Ni4xNzMxNTE2NzU2
+
+https://edu.chainguard.dev/chainguard/chainguard-images/getting-started/python/?__hstc=1638499.112099b34325369d7801b07adad99ef4.1731516905860.1731703344238.1731951065614.3&__hssc=1638499.4.1731951065614&__hsfp=994979027&_gl=1*1vvjd7z*_gcl_au*MTQwMzY1NTE4Ni4xNzMxNTE2NzU2
+
+
+
+catalogo de imagens python:
+
+https://images.chainguard.dev/directory/image/python/versions
+
+
+
+
+--------------------------------------------------------------------
+
+
+cgr.dev/chainguard/python:latest
+
+cgr.dev/chainguard/python:latest-dev
+
+
+
+--------------------------------------------------------------------
+
+
+docker image  build -t dockerfile-chainguard-python -f DockerfileChainguardPython .
+
+    [+] Building 4.7s (14/14) FINISHED                                                          docker:default
+
+    => [internal] load build definition from DockerfileChainguardPython                                  0.0s
+    => => transferring dockerfile: 350B                                                                  0.0s
+    => [internal] load metadata for cgr.dev/chainguard/python:latest                                     1.4s
+    => [internal] load metadata for cgr.dev/chainguard/python:latest-dev                                 1.4s
+    => [internal] load .dockerignore                                                                     0.1s
+    => => transferring context: 295B                                                                     0.0s
+    => [builder 1/4] FROM cgr.dev/chainguard/python:latest-dev@sha256:3d576a0d94b05c0da7fba83c8dbf1d909  0.0s
+    => [internal] load build context                                                                     0.0s
+    => => transferring context: 152.41kB                                                                 0.0s
+    => [stage-1 1/4] FROM cgr.dev/chainguard/python:latest@sha256:5de85837816e630c79597cb0934c352469fe5  0.0s
+    => CACHED [stage-1 2/4] WORKDIR /app                                                                 0.0s
+    => CACHED [builder 2/4] WORKDIR /app                                                                 0.0s
+    => [builder 3/4] COPY requirements.txt .                                                             0.0s
+    => [builder 4/4] RUN pip install --no-cache-dir -r requirements.txt                                  2.6s
+    => [stage-1 3/4] COPY --from=builder /app /app                                                       0.0s
+    => [stage-1 4/4] COPY . .                                                                            0.0s
+    => exporting to image                                                                                0.0s
+    => => exporting layers                                                                               0.0s
+    => => writing image sha256:a4ab249a3af517a893d53e1debfae7b1534ae52cccba7038ebc3ae014ad55244          0.0s
+    => => naming to docker.io/library/dockerfile-chainguard-python
+
+
+docker image ls
+
+    REPOSITORY                                 TAG             IMAGE ID       CREATED              SIZE
+    dockerfile-chainguard-python               latest          a4ab249a3af5   About a minute ago   63.8MB
+
+
+
+docker container run --rm --name dockerfile-chainguard-python dockerfile-chainguard-python:latest
+
+
+
+
+--------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------
+
+
+
+
+--------------------------------------------------------------------
+
+
