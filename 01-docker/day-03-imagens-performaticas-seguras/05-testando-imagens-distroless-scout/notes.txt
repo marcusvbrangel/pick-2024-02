@@ -1,0 +1,418 @@
+
+
+---------------------------------------------------------------------------
+
+
+IMAGENS BASE
+
+
+cgr.dev/chainguard/jdk
+
+cgr.dev/chainguard/jre
+
+cgr.dev/chainguard/python:latest-dev
+
+cgr.dev/chainguard/python:latest
+
+alpine/java:22-jdk
+
+alpine/java:22-jre
+
+alpine:3.14
+
+debian:bullseye-slim
+
+python:3.11-alpine
+
+ubuntu:22.04
+
+
+
+
+---------------------------------------------------------------------------
+
+
+docker image pull cgr.dev/chainguard/python:latest
+
+
+docker image history cgr.dev/chainguard/python:latest
+
+
+    IMAGE          CREATED      CREATED BY   SIZE      COMMENT
+    3482d0a124af   8 days ago   apko         63.7MB    This is an apko single-layer image
+
+
+
+docker scout cves cgr.dev/chainguard/python:latest
+
+    ✓ Image stored for indexing
+    ✓ Indexed 48 packages
+    ✓ No vulnerable package detected
+
+
+## Overview
+
+                    │           Analyzed Image            
+────────────────────┼─────────────────────────────────────
+  Target            │  cgr.dev/chainguard/python:latest   
+    digest          │  3482d0a124af                       
+    platform        │ linux/amd64                         
+    vulnerabilities │    0C     0H     0M     0L          
+    size            │ 27 MB                               
+    packages        │ 48  
+
+
+---------------------------------------------------------------------------
+
+
+docker image pull cgr.dev/chainguard/python:latest-dev
+
+
+docker image history cgr.dev/chainguard/python:latest-dev
+
+
+    IMAGE          CREATED      CREATED BY   SIZE      COMMENT
+    49fb8af1b6bd   3 days ago   apko         574MB     This is an apko single-layer image
+
+
+
+docker scout cves cgr.dev/chainguard/python:latest-dev
+
+        ✓ SBOM of image already cached, 160 packages indexed
+        ✓ No vulnerable package detected
+
+
+    ## Overview
+
+                        │             Analyzed Image              
+    ────────────────────┼─────────────────────────────────────────
+    Target            │  cgr.dev/chainguard/python:latest-dev   
+        digest          │  49fb8af1b6bd                           
+        platform        │ linux/amd64                             
+        vulnerabilities │    0C     0H     0M     0L              
+        size            │ 226 MB                                  
+        packages        │ 160                                     
+
+
+    ## Packages and Vulnerabilities
+
+    No vulnerable packages detected
+
+
+---------------------------------------------------------------------------
+
+
+
+docker image pull cgr.dev/chainguard/jre
+
+
+docker image history cgr.dev/chainguard/jre:latest
+
+
+    IMAGE          CREATED      CREATED BY   SIZE      COMMENT
+    b6be997843d9   8 days ago   apko         292MB     This is an apko single-layer image
+
+
+
+docker scout cves cgr.dev/chainguard/jre:latest
+
+
+        ✓ Image stored for indexing
+        ✓ Indexed 65 packages
+        ✓ No vulnerable package detected
+
+
+    ## Overview
+
+                        │         Analyzed Image           
+    ────────────────────┼──────────────────────────────────
+    Target            │  cgr.dev/chainguard/jre:latest   
+        digest          │  b6be997843d9                    
+        platform        │ linux/amd64                      
+        vulnerabilities │    0C     0H     0M     0L       
+        size            │ 120 MB                           
+        packages        │ 65                               
+
+
+    ## Packages and Vulnerabilities
+
+    No vulnerable packages detected
+
+
+
+---------------------------------------------------------------------------
+
+
+
+docker image pull cgr.dev/chainguard/jdk
+
+
+docker image history cgr.dev/chainguard/jdk:latest
+
+
+    IMAGE          CREATED      CREATED BY   SIZE      COMMENT
+    0afcea5a89d5   8 days ago   apko         293MB     This is an apko single-layer image
+
+
+
+docker scout cves cgr.dev/chainguard/jdk:latest
+
+
+        ✓ Image stored for indexing
+        ✓ Indexed 69 packages
+        ✓ No vulnerable package detected
+
+
+    ## Overview
+
+                        │         Analyzed Image           
+    ────────────────────┼──────────────────────────────────
+    Target            │  cgr.dev/chainguard/jdk:latest   
+        digest          │  0afcea5a89d5                    
+        platform        │ linux/amd64                      
+        vulnerabilities │    0C     0H     0M     0L       
+        size            │ 121 MB                           
+        packages        │ 69                               
+
+
+    ## Packages and Vulnerabilities
+
+    No vulnerable packages detected
+
+
+
+---------------------------------------------------------------------------
+
+
+docker image pull ubuntu:22.04
+
+
+docker image history docker.io/library/ubuntu:22.04
+
+
+    IMAGE          CREATED        CREATED BY                                      SIZE      COMMENT
+    97271d29cb79   2 months ago   /bin/sh -c #(nop)  CMD ["/bin/bash"]            0B        
+    <missing>      2 months ago   /bin/sh -c #(nop) ADD file:ebe009f86035c175b…   77.9MB    
+    <missing>      2 months ago   /bin/sh -c #(nop)  LABEL org.opencontainers.…   0B        
+    <missing>      2 months ago   /bin/sh -c #(nop)  LABEL org.opencontainers.…   0B        
+    <missing>      2 months ago   /bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH     0B        
+    <missing>      2 months ago   /bin/sh -c #(nop)  ARG RELEASE                  0B
+
+
+
+docker scout cves docker.io/library/ubuntu:22.04
+
+
+    19 vulnerabilities found in 14 packages
+    CRITICAL  0   
+    HIGH      0   
+    MEDIUM    5   
+    LOW       14  
+
+
+    What's next:
+        View base image update recommendations → docker scout recommendations ubuntu:22.04
+
+
+
+---------------------------------------------------------------------------
+
+
+docker image pull python:3.11-alpine
+
+
+docker image history docker.io/library/python:3.11-alpine
+
+
+    IMAGE          CREATED        CREATED BY                                      SIZE      COMMENT
+    7c0cd1227a63   4 weeks ago    CMD ["python3"]                                 0B        buildkit.dockerfile.v0
+    <missing>      4 weeks ago    RUN /bin/sh -c set -eux;  for src in idle3 p…   36B       buildkit.dockerfile.v0
+    <missing>      4 weeks ago    RUN /bin/sh -c set -eux;   apk add --no-cach…   50.4MB    buildkit.dockerfile.v0
+    <missing>      4 weeks ago    ENV PYTHON_SHA256=07a4356e912900e61a15cb0949…   0B        buildkit.dockerfile.v0
+    <missing>      4 weeks ago    ENV PYTHON_VERSION=3.11.10                      0B        buildkit.dockerfile.v0
+    <missing>      4 weeks ago    ENV GPG_KEY=A035C8C19219BA821ECEA86B64E628F8…   0B        buildkit.dockerfile.v0
+    <missing>      4 weeks ago    RUN /bin/sh -c set -eux;  apk add --no-cache…   999kB     buildkit.dockerfile.v0
+    <missing>      4 weeks ago    ENV LANG=C.UTF-8                                0B        buildkit.dockerfile.v0
+    <missing>      4 weeks ago    ENV PATH=/usr/local/bin:/usr/local/sbin:/usr…   0B        buildkit.dockerfile.v0
+    <missing>      2 months ago   CMD ["/bin/sh"]                                 0B        buildkit.dockerfile.v0
+    <missing>      2 months ago   ADD alpine-minirootfs-3.20.3-x86_64.tar.gz /…   7.8MB     buildkit.dockerfile.v0
+
+
+
+docker scout cves docker.io/library/python:3.11-alpine
+
+
+    1 vulnerability found in 1 package
+    CRITICAL  0  
+    HIGH      1  
+    MEDIUM    0  
+    LOW       0  
+
+
+    What's next:
+        View base image update recommendations → docker scout recommendations python:3.11-alpine
+
+
+
+---------------------------------------------------------------------------
+
+
+docker image pull debian:bullseye-slim
+
+
+docker image history docker.io/library/debian:bullseye-slim
+
+
+    IMAGE          CREATED      CREATED BY                       SIZE      COMMENT
+    5d941b17065a   9 days ago   CMD ["bash"]                     0B        buildkit.dockerfile.v0
+    <missing>      9 days ago   ADD rootfs.tar.xz / # buildkit   80.7MB    buildkit.dockerfile.v0
+
+
+
+docker scout cves docker.io/library/debian:bullseye-slim
+
+
+    36 vulnerabilities found in 18 packages
+    CRITICAL  0   
+    HIGH      1   
+    MEDIUM    0   
+    LOW       35  
+
+
+    What's next:
+        View base image update recommendations → docker scout recommendations debian:bullseye-slim
+
+
+
+
+---------------------------------------------------------------------------
+
+
+docker image pull alpine:3.14
+
+
+docker image history docker.io/library/alpine:3.14
+
+
+    IMAGE          CREATED         CREATED BY                                      SIZE      COMMENT
+    9e179bacf43c   20 months ago   /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B        
+    <missing>      20 months ago   /bin/sh -c #(nop) ADD file:9663235f252e072c5…   5.61MB 
+
+
+
+docker scout cves docker.io/library/alpine:3.14
+
+
+        ✓ Image stored for indexing
+        ✓ Indexed 18 packages
+        ✓ No vulnerable package detected
+
+
+    ## Overview
+
+                        │       Analyzed Image         
+    ────────────────────┼──────────────────────────────
+    Target            │  alpine:3.14                 
+        digest          │  9e179bacf43c                
+        platform        │ linux/amd64                  
+        vulnerabilities │    0C     0H     0M     0L   
+        size            │ 3.1 MB                       
+        packages        │ 18                           
+
+
+    ## Packages and Vulnerabilities
+
+    No vulnerable packages detected
+
+
+
+---------------------------------------------------------------------------
+
+
+
+docker image pull alpine/java:22-jre
+
+
+docker image history docker.io/alpine/java:22-jre
+
+
+    IMAGE          CREATED        CREATED BY                                      SIZE      COMMENT
+    ed0d74983cd2   3 months ago   ENTRYPOINT ["/__cacert_entrypoint.sh"]          0B        buildkit.dockerfile.v0
+    <missing>      3 months ago   COPY entrypoint.sh /__cacert_entrypoint.sh #…   4.74kB    buildkit.dockerfile.v0
+    <missing>      3 months ago   RUN /bin/sh -c set -eux;     echo "Verifying…   0B        buildkit.dockerfile.v0
+    <missing>      3 months ago   RUN /bin/sh -c set -eux;     ARCH="$(apk --p…   162MB     buildkit.dockerfile.v0
+    <missing>      3 months ago   ENV JAVA_VERSION=jdk-22.0.2+9                   0B        buildkit.dockerfile.v0
+    <missing>      3 months ago   RUN /bin/sh -c set -eux;     apk add --no-ca…   18.9MB    buildkit.dockerfile.v0
+    <missing>      3 months ago   ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_AL…   0B        buildkit.dockerfile.v0
+    <missing>      3 months ago   ENV PATH=/opt/java/openjdk/bin:/usr/local/sb…   0B        buildkit.dockerfile.v0
+    <missing>      3 months ago   ENV JAVA_HOME=/opt/java/openjdk                 0B        buildkit.dockerfile.v0
+    <missing>      4 months ago   /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B        
+    <missing>      4 months ago   /bin/sh -c #(nop) ADD file:99093095d62d04215…   7.8MB    
+
+
+
+
+docker scout cves docker.io/alpine/java:22-jre
+
+
+    6 vulnerabilities found in 2 packages
+    CRITICAL  2  
+    HIGH      2  
+    MEDIUM    2  
+    LOW       0  
+
+
+    What's next:
+        View base image update recommendations → docker scout recommendations alpine/java:22-jre
+
+
+
+---------------------------------------------------------------------------
+
+
+docker image pull alpine/java:22-jdk
+
+
+docker image history docker.io/alpine/java:22-jdk
+
+
+    IMAGE          CREATED        CREATED BY                                      SIZE      COMMENT
+    0019b75f3232   3 months ago   CMD ["jshell"]                                  0B        buildkit.dockerfile.v0
+    <missing>      3 months ago   ENTRYPOINT ["/__cacert_entrypoint.sh"]          0B        buildkit.dockerfile.v0
+    <missing>      3 months ago   COPY entrypoint.sh /__cacert_entrypoint.sh #…   4.74kB    buildkit.dockerfile.v0
+    <missing>      3 months ago   RUN /bin/sh -c set -eux;     echo "Verifying…   0B        buildkit.dockerfile.v0
+    <missing>      3 months ago   RUN /bin/sh -c set -eux;     ARCH="$(apk --p…   303MB     buildkit.dockerfile.v0
+    <missing>      3 months ago   ENV JAVA_VERSION=jdk-22.0.2+9                   0B        buildkit.dockerfile.v0
+    <missing>      3 months ago   RUN /bin/sh -c set -eux;     apk add --no-ca…   32MB      buildkit.dockerfile.v0
+    <missing>      3 months ago   ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_AL…   0B        buildkit.dockerfile.v0
+    <missing>      3 months ago   ENV PATH=/opt/java/openjdk/bin:/usr/local/sb…   0B        buildkit.dockerfile.v0
+    <missing>      3 months ago   ENV JAVA_HOME=/opt/java/openjdk                 0B        buildkit.dockerfile.v0
+    <missing>      4 months ago   /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B        
+    <missing>      4 months ago   /bin/sh -c #(nop) ADD file:99093095d62d04215…   7.8MB     
+
+
+
+
+docker scout cves docker.io/alpine/java:22-jdk
+
+
+    6 vulnerabilities found in 2 packages
+    CRITICAL  2  
+    HIGH      2  
+    MEDIUM    2  
+    LOW       0  
+
+
+    What's next:
+        View base image update recommendations → docker scout recommendations alpine/java:22-jdk
+
+
+
+---------------------------------------------------------------------------
+
+
+
+
+
+
+
