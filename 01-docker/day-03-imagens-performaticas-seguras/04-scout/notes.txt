@@ -1,0 +1,344 @@
+
+----------------------------------------------------------------------------------
+
+
+Docker Scout
+https://docs.docker.com/scout/
+
+
+Install Docker Scout
+https://docs.docker.com/scout/install/
+
+    curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
+    sh install-scout.sh
+
+
+Docker Scout image analysis
+https://docs.docker.com/scout/explore/analysis/
+
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+docker scout
+
+
+    Command line tool for Docker Scout
+
+    Usage
+    docker scout [command]
+
+    Available Commands
+    attestation             Manage attestations on image indexes
+    cache                   Manage Docker Scout cache and temporary files
+    compare                 Compare two images and display differences (experimental)
+    config                  Manage Docker Scout configuration
+    cves                    Display CVEs identified in a software artifact
+    enroll                  Enroll an organization with Docker Scout
+    environment             Manage environments (experimental)
+    help                    Display information about the available commands
+    integration             Commands to list, configure, and delete Docker Scout integrations
+    policy                  Evaluate policies against an image and display the policy evaluation results (experimental)
+    push                    Push an image or image index to Docker Scout
+    quickview               Quick overview of an image
+    recommendations         Display available base image updates and remediation recommendations
+    repo                    Commands to list, enable, and disable Docker Scout on repositories
+    version                 Show Docker Scout version information
+
+    Use "docker scout [command] --help" for more information about a command.
+
+    Learn More
+    Read docker scout cli reference at https://docs.docker.com/engine/reference/commandline/scout/
+
+    Report Issues
+    Raise bugs and feature requests at https://github.com/docker/scout-cli/issues
+
+    Send Feedback
+    Send feedback with docker feedback
+
+
+
+----------------------------------------------------------------------------------
+
+
+docker image ls
+
+    REPOSITORY                                 TAG             IMAGE ID       CREATED         SIZE
+    dockerfile-chainguard-java                 1.0             d98bcf992326   24 hours ago    321MB
+    dockerfile-alpine-java-jre                 1.0             b9e9dc6ffa23   24 hours ago    217MB
+    dockerfile-alpine-java-jdk                 1.0             3d6724601cb5   24 hours ago    371MB
+    dockerfile-alpine-java                     1.0             3d6724601cb5   24 hours ago    371MB
+    dockerfile-chainguard-python               latest          1a2b097e54a5   32 hours ago    63.8MB
+
+
+
+----------------------------------------------------------------------------------
+
+
+### Alternativas ao Docker Scout
+
+Se o Docker Scout não estiver disponível ou não funcionar, você pode usar outras ferramentas 
+para análise de imagens Docker, como:
+
+- **Trivy**: Uma ferramenta de scanner de vulnerabilidades para contêineres.
+- **Clair**: Um serviço de análise de vulnerabilidades estáticas para contêineres Docker.
+- **Anchore**: Uma plataforma de análise de contêineres que inspeciona, analisa e 
+  certifica imagens de contêineres.
+
+
+----------------------------------------------------------------------------------
+
+
+docker scout cves dockerfile-chainguard-java:1.0
+
+
+        ✓ Image stored for indexing
+        ✓ Indexed 123 packages
+        ✓ No vulnerable package detected
+
+
+    ## Overview
+
+                        │          Analyzed Image           
+    ────────────────────┼───────────────────────────────────
+    Target            │  dockerfile-chainguard-java:1.0   
+        digest          │  d98bcf992326                     
+        platform        │ linux/amd64                       
+        vulnerabilities │    0C     0H     0M     0L        
+        size            │ 148 MB                            
+        packages        │ 123                               
+
+
+    ## Packages and Vulnerabilities
+
+    No vulnerable packages detected
+
+
+----------------------------------------------------------------------------------
+
+
+docker scout cves dockerfile-alpine-java-jre:1.0
+
+
+        ✓ Image stored for indexing
+        ✓ Indexed 110 packages
+        ✗ Detected 2 vulnerable packages with a total of 6 vulnerabilities
+
+
+    ## Overview
+
+                        │          Analyzed Image           
+    ────────────────────┼───────────────────────────────────
+    Target            │  dockerfile-alpine-java-jre:1.0   
+        digest          │  b9e9dc6ffa23                     
+        platform        │ linux/amd64                       
+        vulnerabilities │    2C     2H     2M     0L        
+        size            │ 102 MB                            
+        packages        │ 110                               
+
+
+    ## Packages and Vulnerabilities
+
+    2C     1H     1M     0L  expat 2.6.2-r0
+    pkg:apk/alpine/expat@2.6.2-r0?os_name=alpine&os_version=3.20
+
+        ✗ CRITICAL CVE-2024-45492
+        https://scout.docker.com/v/CVE-2024-45492
+        Affected range : <2.6.3-r0  
+        Fixed version  : 2.6.3-r0   
+        
+        ✗ CRITICAL CVE-2024-45491
+        https://scout.docker.com/v/CVE-2024-45491
+        Affected range : <2.6.3-r0  
+        Fixed version  : 2.6.3-r0   
+        
+        ✗ HIGH CVE-2024-45490
+        https://scout.docker.com/v/CVE-2024-45490
+        Affected range : <2.6.3-r0  
+        Fixed version  : 2.6.3-r0   
+        
+        ✗ MEDIUM CVE-2024-50602
+        https://scout.docker.com/v/CVE-2024-50602
+        Affected range : <2.6.4-r0  
+        Fixed version  : 2.6.4-r0   
+        
+
+    0C     1H     1M     0L  openssl 3.3.1-r3
+    pkg:apk/alpine/openssl@3.3.1-r3?os_name=alpine&os_version=3.20
+
+        ✗ HIGH CVE-2024-6119
+        https://scout.docker.com/v/CVE-2024-6119
+        Affected range : <3.3.2-r0  
+        Fixed version  : 3.3.2-r0   
+        
+        ✗ MEDIUM CVE-2024-9143
+        https://scout.docker.com/v/CVE-2024-9143
+        Affected range : <3.3.2-r1  
+        Fixed version  : 3.3.2-r1   
+        
+
+
+    6 vulnerabilities found in 2 packages
+    CRITICAL  2  
+    HIGH      2  
+    MEDIUM    2  
+    LOW       0  
+
+
+    What's next:
+        View base image update recommendations → docker scout recommendations dockerfile-alpine-java-jre:1.0
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+docker scout recommendations dockerfile-alpine-java-jre:1.0
+
+
+        ✓ SBOM of image already cached, 110 packages indexed
+
+        i Base image was auto-detected. To get more accurate recommendations, build images with max-mode provenance attestations.
+        Review docs.docker.com ↗ for more information.
+        Alternatively, use  docker scout recommendations --tag <base image tag>  to pass a specific base image tag.
+        
+    Target   │  dockerfile-alpine-java-jre:1.0   
+        digest │  b9e9dc6ffa23                     
+
+    ## Recommended fixes
+
+    Base image is  alpine:3 
+
+    Name            │  3                                                                         
+    Digest          │  sha256:eddacbc7e24bf8799a4ed3cdcfa50d4b88a323695ad80f317b6629883b2c2a78   
+    Vulnerabilities │    0C     1H     1M     0L                                                 
+    Pushed          │ 4 months ago                                                               
+    Size            │ 3.6 MB                                                                     
+    Packages        │ 17                                                                         
+    OS              │ 3.20.2                                                                     
+
+                                                                                                        
+    │ The base image is also available under the supported tag(s)  3.20 ,  latest . If you want to       
+    display                                                                                              
+    │ recommendations specifically for a different tag, please re-run the command using the  --tag  flag. 
+
+
+
+    Refresh base image
+    Rebuild the image using a newer base image version. Updating this may result in breaking changes.
+
+
+                Tag            │                        Details                        │    Pushed    │       Vulnerabilities        
+    ───────────────────────────┼───────────────────────────────────────────────────────┼──────────────┼──────────────────────────────
+    3                       │ Benefits:                                             │ 2 months ago │    0C     0H     1M     0L   
+    Newer image for same tag │ • Newer image for same tag                            │              │           -1                 
+    Also known as:           │ • Minor OS version update                             │              │                              
+    • 3.20.3                 │ • Tag is preferred tag                                │              │                              
+    • 3.20                   │ • Tag was pushed more recently                        │              │                              
+    • latest                 │ • Image has similar size                              │              │                              
+                            │ • Tag is latest                                       │              │                              
+                            │ • Image introduces no new vulnerability but removes 1 │              │                              
+                            │ • Image contains equal number of packages             │              │                              
+                            │ • 3 was pulled 251K times last month                  │              │                              
+                            │                                                       │              │                              
+                            │ Image details:                                        │              │                              
+                            │ • Size: 3.6 MB                                        │              │                              
+                            │ • OS: 3.20.3                                          │              │                              
+                            │                                                       │              │                              
+                            │                                                       │              │                              
+                            │                                                       │              │                              
+
+
+    Change base image
+    The list displays new recommended tags in descending order, where the top results are rated as most suitable.
+
+
+    Tag │ Details │ Pushed │ Vulnerabilities  
+    ──────┼─────────┼────────┼──────────────────
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+docker scout quickview dockerfile-alpine-java-jre:1.0
+
+
+        ✓ SBOM of image already cached, 110 packages indexed
+
+        i Base image was auto-detected. To get more accurate results, build images with 
+        max-mode provenance attestations.
+        Review docs.docker.com ↗ for more information.
+        
+    Target               │  dockerfile-alpine-java-jre:1.0  │    2C     2H     2M     0L   
+        digest             │  b9e9dc6ffa23                    │                              
+    Base image           │  alpine:3                        │    0C     1H     1M     0L   
+    Refreshed base image │  alpine:3                        │    0C     0H     1M     0L   
+                        │                                  │           -1                 
+
+    What's next:
+        View vulnerabilities → docker scout cves dockerfile-alpine-java-jre:1.0
+        View base image update recommendations → docker scout recommendations dockerfile-alpine-java-jre:1.0
+        Include policy results in your quickview by supplying an organization → docker scout quickview 
+        dockerfile-alpine-java-jre:1.0 --org <organization>
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------
+
+
+
+
+----------------------------------------------------------------------------------
+
+
