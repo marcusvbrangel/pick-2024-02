@@ -1,0 +1,5 @@
+cosign.key
+cosign.pub
+Dockerfile-chainguard-java
+.dockerignore
+notes.txt
